@@ -3,6 +3,7 @@ import { Box, TextField, Grid, Button } from "@mui/material";
 
 export default function LocalStorage() {
   const [formData, setFormData] = useState({
+    emp_id: null,
     name: "",
     phone: "",
     email: "",
@@ -35,6 +36,7 @@ export default function LocalStorage() {
 
   const handleClearFields = () => {
     setFormData({
+      emp_id: "",
       name: "",
       phone: "",
       email: "",
@@ -44,27 +46,48 @@ export default function LocalStorage() {
   };
 
   return (
-    <div style={{ margin: "20px", padding: "20px", backgroundColor: "#e3f2fd", borderRadius: "12px", boxShadow: "0 6px 12px rgba(0, 0, 0, 0.15)" }}>
-      <Box 
-        component="form" 
+    <div
+      style={{
+        margin: "20px",
+        padding: "20px",
+        backgroundColor: "#e3f2fd",
+        borderRadius: "12px",
+        boxShadow: "0 6px 12px rgba(0, 0, 0, 0.15)",
+      }}
+    >
+      <Box
+        component="form"
         sx={{
-          display: "flex", 
-          flexDirection: "column", 
-          gap: 2, 
-          padding: "25px", 
-          backgroundColor: "#ffffff", 
-          borderRadius: "12px", 
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)"
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
+          padding: "25px",
+          backgroundColor: "#ffffff",
+          borderRadius: "12px",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
         }}
       >
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <TextField 
-              name="name" 
-              type="text" 
-              placeholder="Enter your Name" 
-              label="Name" 
-              fullWidth 
+            <TextField
+              name="emp_id"
+              type="number"
+              placeholder="Enter your Id"
+              label="Id"
+              fullWidth
+              variant="outlined"
+              sx={{ backgroundColor: "#f4f6f8", borderRadius: "8px" }}
+              value={formData.emp_id}
+              onChange={handleChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              name="name"
+              type="text"
+              placeholder="Enter your Name"
+              label="Name"
+              fullWidth
               variant="outlined"
               sx={{ backgroundColor: "#f4f6f8", borderRadius: "8px" }}
               value={formData.name}
@@ -72,12 +95,12 @@ export default function LocalStorage() {
             />
           </Grid>
           <Grid item xs={12}>
-            <TextField 
-              name="phone" 
-              type="tel" 
-              placeholder="Enter your Phone" 
-              label="Phone" 
-              fullWidth 
+            <TextField
+              name="phone"
+              type="tel"
+              placeholder="Enter your Phone"
+              label="Phone"
+              fullWidth
               variant="outlined"
               sx={{ backgroundColor: "#f4f6f8", borderRadius: "8px" }}
               value={formData.phone}
@@ -85,12 +108,12 @@ export default function LocalStorage() {
             />
           </Grid>
           <Grid item xs={12}>
-            <TextField 
-              name="email" 
-              type="email" 
-              placeholder="Enter your Email" 
-              label="Email" 
-              fullWidth 
+            <TextField
+              name="email"
+              type="email"
+              placeholder="Enter your Email"
+              label="Email"
+              fullWidth
               variant="outlined"
               sx={{ backgroundColor: "#f4f6f8", borderRadius: "8px" }}
               value={formData.email}
@@ -98,48 +121,52 @@ export default function LocalStorage() {
             />
           </Grid>
           <Grid item xs={12}>
-            <TextField 
-              name="address" 
-              type="text" 
-              placeholder="Enter your Address" 
-              label="Address" 
-              multiline 
-              rows={3} 
-              fullWidth 
+            <TextField
+              name="address"
+              type="text"
+              placeholder="Enter your Address"
+              label="Address"
+              multiline
+              rows={3}
+              fullWidth
               variant="outlined"
               sx={{ backgroundColor: "#f4f6f8", borderRadius: "8px" }}
               value={formData.address}
               onChange={handleChange}
             />
           </Grid>
-          <Grid item xs={12} sx={{ display: "flex", gap: 1, justifyContent: "space-between" }}>
-            <Button 
-              variant="contained" 
-              color="primary" 
+          <Grid
+            item
+            xs={12}
+            sx={{ display: "flex", gap: 1, justifyContent: "space-between" }}
+          >
+            <Button
+              variant="contained"
+              color="primary"
               size="small"
               onClick={handleSave}
             >
               Save
             </Button>
-            <Button 
-              variant="contained" 
-              color="secondary" 
+            <Button
+              variant="contained"
+              color="secondary"
               size="small"
               onClick={handleShowData}
             >
               Show Data
             </Button>
-            <Button 
-              variant="contained" 
-              color="error" 
+            <Button
+              variant="contained"
+              color="error"
               size="small"
               onClick={handleRemoveData}
             >
               Remove Data
             </Button>
-            <Button 
-              variant="outlined" 
-              color="primary" 
+            <Button
+              variant="outlined"
+              color="primary"
               size="small"
               onClick={handleClearFields}
             >
