@@ -33,6 +33,16 @@ export default function LocalStorage() {
     alert("Stored data removed successfully!");
   };
 
+  const handleClearFields = () => {
+    setFormData({
+      name: "",
+      phone: "",
+      email: "",
+      address: "",
+    });
+    alert("Form fields cleared!");
+  };
+
   return (
     <div style={{ margin: "20px", padding: "20px", backgroundColor: "#e3f2fd", borderRadius: "12px", boxShadow: "0 6px 12px rgba(0, 0, 0, 0.15)" }}>
       <Box 
@@ -133,6 +143,17 @@ export default function LocalStorage() {
               onClick={handleRemoveData}
             >
               Remove Data
+            </Button>
+          </Grid>
+          <Grid item xs={12}>
+            <Button 
+              variant="outlined" 
+              color="primary" 
+              fullWidth
+              sx={{ padding: "12px", borderRadius: "8px", fontWeight: "bold", fontSize: "16px" }}
+              onClick={handleClearFields}
+            >
+              Clear Fields
             </Button>
           </Grid>
         </Grid>
