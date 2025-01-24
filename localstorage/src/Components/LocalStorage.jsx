@@ -42,6 +42,33 @@ export default function LocalStorage() {
   };
 
   const handleSave = () => {
+    // Check for empty fields
+    if (
+      !formData.emp_id ||
+      !formData.name ||
+      !formData.phone ||
+      !formData.email ||
+      !formData.address
+    ) {
+      alert("All fields are required!");
+      return;
+    }
+
+    // Check for duplicates
+    const isDuplicate = tableData.some(
+      (data) =>
+        data.emp_id === formData.emp_id ||
+        (data.name === formData.name &&
+          data.phone === formData.phone &&
+          data.email === formData.email &&
+          data.address === formData.address)
+    );
+
+    if (isDuplicate) {
+      alert("Duplicate entry! Data already exists.");
+      return;
+    }
+
     if (editIndex !== null) {
       // If editing, update the specific row
       const updatedData = [...tableData];
@@ -219,6 +246,7 @@ export default function LocalStorage() {
               <TableCell>Phone</TableCell>
               <TableCell>Email</TableCell>
               <TableCell>Address</TableCell>
+              <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -236,9 +264,7 @@ export default function LocalStorage() {
                   <IconButton onClick={() => handleEdit(index)}>
                     <EditIcon color="success" />
                   </IconButton>
-                </TableCell>
-                <TableCell>
-                <IconButton onClick={() => handleDelete(index)}>
+                  <IconButton onClick={() => handleDelete(index)}>
                     <DeleteSharpIcon color="error" />
                   </IconButton>
                 </TableCell>
