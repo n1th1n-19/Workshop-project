@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Box, TextField, Grid, Button } from "@mui/material";
+import Image from "./Image"
 
 export default function LocalStorage() {
   const [formData, setFormData] = useState({
@@ -177,7 +178,11 @@ export default function LocalStorage() {
             >
               Clear Fields
             </Button>
+           
           </Grid>
+          <Box>
+                <Image/>
+            </Box>
         </Grid>
       </Box>
     </div>
