@@ -170,7 +170,7 @@ export default function LocalStorage() {
               Remove Data
             </Button>
             <Button
-              variant="outlined"
+              variant="contained"
               color="primary"
               size="small"
               onClick={handleClearFields}
