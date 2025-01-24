@@ -19,6 +19,20 @@ export default function LocalStorage() {
     alert("Form data saved successfully!");
   };
 
+  const handleShowData = () => {
+    const storedData = localStorage.getItem("formData");
+    if (storedData) {
+      alert(`Stored Data: ${storedData}`);
+    } else {
+      alert("No data found in localStorage!");
+    }
+  };
+
+  const handleRemoveData = () => {
+    localStorage.removeItem("formData");
+    alert("Stored data removed successfully!");
+  };
+
   return (
     <div style={{ margin: "20px", padding: "20px", backgroundColor: "#e3f2fd", borderRadius: "12px", boxShadow: "0 6px 12px rgba(0, 0, 0, 0.15)" }}>
       <Box 
@@ -97,6 +111,28 @@ export default function LocalStorage() {
               onClick={handleSave}
             >
               Save
+            </Button>
+          </Grid>
+          <Grid item xs={12}>
+            <Button 
+              variant="contained" 
+              color="secondary" 
+              fullWidth
+              sx={{ padding: "12px", borderRadius: "8px", fontWeight: "bold", fontSize: "16px" }}
+              onClick={handleShowData}
+            >
+              Show Data
+            </Button>
+          </Grid>
+          <Grid item xs={12}>
+            <Button 
+              variant="contained" 
+              color="error" 
+              fullWidth
+              sx={{ padding: "12px", borderRadius: "8px", fontWeight: "bold", fontSize: "16px" }}
+              onClick={handleRemoveData}
+            >
+              Remove Data
             </Button>
           </Grid>
         </Grid>
