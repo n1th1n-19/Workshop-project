@@ -238,7 +238,7 @@ export default function LocalStorage() {
                 </TableCell>
                 <TableCell>
                   <IconButton>
-                        <DeleteSharpIcon color="red"/>
+                        <DeleteSharpIcon color="success"/>
                   </IconButton>
                 </TableCell>
               </TableRow>
