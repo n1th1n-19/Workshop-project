@@ -1,7 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, TextField, Grid, Button } from "@mui/material";
 
 export default function LocalStorage() {
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    address: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSave = () => {
+    localStorage.setItem("formData", JSON.stringify(formData));
+    alert("Form data saved successfully!");
+  };
+
   return (
     <div style={{ margin: "20px", padding: "20px", backgroundColor: "#e3f2fd", borderRadius: "12px", boxShadow: "0 6px 12px rgba(0, 0, 0, 0.15)" }}>
       <Box 
@@ -26,6 +43,8 @@ export default function LocalStorage() {
               fullWidth 
               variant="outlined"
               sx={{ backgroundColor: "#f4f6f8", borderRadius: "8px" }}
+              value={formData.name}
+              onChange={handleChange}
             />
           </Grid>
           <Grid item xs={12}>
@@ -37,6 +56,8 @@ export default function LocalStorage() {
               fullWidth 
               variant="outlined"
               sx={{ backgroundColor: "#f4f6f8", borderRadius: "8px" }}
+              value={formData.phone}
+              onChange={handleChange}
             />
           </Grid>
           <Grid item xs={12}>
@@ -48,6 +69,8 @@ export default function LocalStorage() {
               fullWidth 
               variant="outlined"
               sx={{ backgroundColor: "#f4f6f8", borderRadius: "8px" }}
+              value={formData.email}
+              onChange={handleChange}
             />
           </Grid>
           <Grid item xs={12}>
@@ -61,6 +84,8 @@ export default function LocalStorage() {
               fullWidth 
               variant="outlined"
               sx={{ backgroundColor: "#f4f6f8", borderRadius: "8px" }}
+              value={formData.address}
+              onChange={handleChange}
             />
           </Grid>
           <Grid item xs={12}>
@@ -69,6 +94,7 @@ export default function LocalStorage() {
               color="primary" 
               fullWidth
               sx={{ padding: "12px", borderRadius: "8px", fontWeight: "bold", fontSize: "16px" }}
+              onClick={handleSave}
             >
               Save
             </Button>
