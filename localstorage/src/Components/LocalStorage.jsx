@@ -112,45 +112,35 @@ export default function LocalStorage() {
               onChange={handleChange}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} sx={{ display: "flex", gap: 1, justifyContent: "space-between" }}>
             <Button 
               variant="contained" 
               color="primary" 
-              fullWidth
-              sx={{ padding: "12px", borderRadius: "8px", fontWeight: "bold", fontSize: "16px" }}
+              size="small"
               onClick={handleSave}
             >
               Save
             </Button>
-          </Grid>
-          <Grid item xs={12}>
             <Button 
               variant="contained" 
               color="secondary" 
-              fullWidth
-              sx={{ padding: "12px", borderRadius: "8px", fontWeight: "bold", fontSize: "16px" }}
+              size="small"
               onClick={handleShowData}
             >
               Show Data
             </Button>
-          </Grid>
-          <Grid item xs={12}>
             <Button 
               variant="contained" 
               color="error" 
-              fullWidth
-              sx={{ padding: "12px", borderRadius: "8px", fontWeight: "bold", fontSize: "16px" }}
+              size="small"
               onClick={handleRemoveData}
             >
               Remove Data
             </Button>
-          </Grid>
-          <Grid item xs={12}>
             <Button 
               variant="outlined" 
               color="primary" 
-              fullWidth
-              sx={{ padding: "12px", borderRadius: "8px", fontWeight: "bold", fontSize: "16px" }}
+              size="small"
               onClick={handleClearFields}
             >
               Clear Fields
