@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   TextField,
@@ -13,8 +13,8 @@ import {
   TableBody,
   IconButton,
 } from "@mui/material";
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteSharpIcon from "@mui/icons-material/DeleteSharp";
 
 export default function LocalStorage() {
   const [formData, setFormData] = useState({
@@ -27,6 +27,14 @@ export default function LocalStorage() {
 
   const [tableData, setTableData] = useState([]);
 
+  // Load data from localStorage on component mount
+  useEffect(() => {
+    const storedData = localStorage.getItem("formData");
+    if (storedData) {
+      setTableData(JSON.parse(storedData));
+    }
+  }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -34,8 +42,9 @@ export default function LocalStorage() {
 
   const handleSave = () => {
     // Add formData to the tableData array
-    setTableData((prev) => [...prev, formData]);
-    localStorage.setItem("formData", JSON.stringify([...tableData, formData]));
+    const updatedData = [...tableData, formData];
+    setTableData(updatedData);
+    localStorage.setItem("formData", JSON.stringify(updatedData));
     alert("Form data saved successfully!");
     // Clear form after saving
     setFormData({
@@ -51,7 +60,7 @@ export default function LocalStorage() {
     const storedData = localStorage.getItem("formData");
     if (storedData) {
       setTableData(JSON.parse(storedData));
-      alert("Data loaded successfully!" + (storedData));
+      alert("Data loaded successfully!");
     } else {
       alert("No data found in localStorage!");
     }
@@ -72,6 +81,13 @@ export default function LocalStorage() {
       address: "",
     });
     alert("Form fields cleared!");
+  };
+
+  const handleDelete = (index) => {
+    const updatedData = tableData.filter((_, i) => i !== index);
+    setTableData(updatedData);
+    localStorage.setItem("formData", JSON.stringify(updatedData));
+    alert("Row deleted successfully!");
   };
 
   return (
@@ -218,6 +234,7 @@ export default function LocalStorage() {
               <TableCell>Phone</TableCell>
               <TableCell>Email</TableCell>
               <TableCell>Address</TableCell>
+      
             </TableRow>
           </TableHead>
           <TableBody>
@@ -233,14 +250,14 @@ export default function LocalStorage() {
                 <TableCell>{row.address}</TableCell>
                 <TableCell>
                   <IconButton>
-                        <EditIcon color="success"/>
+                    <EditIcon color="success" />
                   </IconButton>
                 </TableCell>
                 <TableCell>
-                  <IconButton>
-                        <DeleteSharpIcon color="success"/>
+                    <IconButton onClick={() => handleDelete(index)}>
+                    <DeleteSharpIcon color="error" />
                   </IconButton>
-                </TableCell>
+                  </TableCell>
               </TableRow>
             ))}
           </TableBody>
