@@ -11,7 +11,10 @@ import {
   TableRow,
   TableCell,
   TableBody,
+  IconButton,
 } from "@mui/material";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteSharpIcon from '@mui/icons-material/DeleteSharp';
 
 export default function LocalStorage() {
   const [formData, setFormData] = useState({
@@ -48,7 +51,7 @@ export default function LocalStorage() {
     const storedData = localStorage.getItem("formData");
     if (storedData) {
       setTableData(JSON.parse(storedData));
-      alert("Data loaded successfully!");
+      alert("Data loaded successfully!" + (storedData));
     } else {
       alert("No data found in localStorage!");
     }
@@ -228,6 +231,16 @@ export default function LocalStorage() {
                 <TableCell>{row.phone}</TableCell>
                 <TableCell>{row.email}</TableCell>
                 <TableCell>{row.address}</TableCell>
+                <TableCell>
+                  <IconButton>
+                        <EditIcon color="success"/>
+                  </IconButton>
+                </TableCell>
+                <TableCell>
+                  <IconButton>
+                        <DeleteSharpIcon color="red"/>
+                  </IconButton>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
