@@ -36,7 +36,7 @@ export default function Image() {
         <Box
           component="img"
           src={url}
-          sx={{ height: "60vh", width: "300px", backgroundColor: "blue" }}
+          sx={{ height: "60vh", width: "300px", backgroundColor: "white" }}
         ></Box>
         <br />
         <br />

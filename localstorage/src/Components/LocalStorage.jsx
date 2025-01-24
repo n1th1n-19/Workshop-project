@@ -1,15 +1,28 @@
 import React, { useState } from "react";
-import { Box, TextField, Grid, Button } from "@mui/material";
-import Image from "./Image"
+import {
+  Box,
+  TextField,
+  Grid,
+  Button,
+  TableContainer,
+  Paper,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+} from "@mui/material";
 
 export default function LocalStorage() {
   const [formData, setFormData] = useState({
-    emp_id: null,
+    emp_id: "",
     name: "",
     phone: "",
     email: "",
     address: "",
   });
+
+  const [tableData, setTableData] = useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -17,14 +30,25 @@ export default function LocalStorage() {
   };
 
   const handleSave = () => {
-    localStorage.setItem("formData", JSON.stringify(formData));
+    // Add formData to the tableData array
+    setTableData((prev) => [...prev, formData]);
+    localStorage.setItem("formData", JSON.stringify([...tableData, formData]));
     alert("Form data saved successfully!");
+    // Clear form after saving
+    setFormData({
+      emp_id: "",
+      name: "",
+      phone: "",
+      email: "",
+      address: "",
+    });
   };
 
   const handleShowData = () => {
     const storedData = localStorage.getItem("formData");
     if (storedData) {
-      alert(`Stored Data: ${storedData}`);
+      setTableData(JSON.parse(storedData));
+      alert("Data loaded successfully!");
     } else {
       alert("No data found in localStorage!");
     }
@@ -32,6 +56,7 @@ export default function LocalStorage() {
 
   const handleRemoveData = () => {
     localStorage.removeItem("formData");
+    setTableData([]);
     alert("Stored data removed successfully!");
   };
 
@@ -178,13 +203,36 @@ export default function LocalStorage() {
             >
               Clear Fields
             </Button>
-           
           </Grid>
-          <Box>
-                <Image/>
-            </Box>
         </Grid>
       </Box>
+      <TableContainer component={Paper} sx={{ marginTop: "20px" }}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Employee ID</TableCell>
+              <TableCell>Name</TableCell>
+              <TableCell>Phone</TableCell>
+              <TableCell>Email</TableCell>
+              <TableCell>Address</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {tableData.map((row, index) => (
+              <TableRow
+                key={index}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell>{row.emp_id}</TableCell>
+                <TableCell>{row.name}</TableCell>
+                <TableCell>{row.phone}</TableCell>
+                <TableCell>{row.email}</TableCell>
+                <TableCell>{row.address}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
   );
 }
