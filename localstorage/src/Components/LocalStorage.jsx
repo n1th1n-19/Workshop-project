@@ -76,6 +76,7 @@ export default function LocalStorage() {
               label="Id"
               fullWidth
               variant="outlined"
+              required
               sx={{ backgroundColor: "#f4f6f8", borderRadius: "8px" }}
               value={formData.emp_id}
               onChange={handleChange}
@@ -89,6 +90,7 @@ export default function LocalStorage() {
               label="Name"
               fullWidth
               variant="outlined"
+              required
               sx={{ backgroundColor: "#f4f6f8", borderRadius: "8px" }}
               value={formData.name}
               onChange={handleChange}
@@ -102,6 +104,7 @@ export default function LocalStorage() {
               label="Phone"
               fullWidth
               variant="outlined"
+              required
               sx={{ backgroundColor: "#f4f6f8", borderRadius: "8px" }}
               value={formData.phone}
               onChange={handleChange}
@@ -115,6 +118,7 @@ export default function LocalStorage() {
               label="Email"
               fullWidth
               variant="outlined"
+              required
               sx={{ backgroundColor: "#f4f6f8", borderRadius: "8px" }}
               value={formData.email}
               onChange={handleChange}
@@ -130,6 +134,7 @@ export default function LocalStorage() {
               rows={3}
               fullWidth
               variant="outlined"
+              required
               sx={{ backgroundColor: "#f4f6f8", borderRadius: "8px" }}
               value={formData.address}
               onChange={handleChange}
