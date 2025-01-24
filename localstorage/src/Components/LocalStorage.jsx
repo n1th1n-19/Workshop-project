@@ -3,7 +3,7 @@ import { Box, TextField, Grid, Button } from "@mui/material";
 
 export default function LocalStorage() {
   const [formData, setFormData] = useState({
-    emp_id: "",
+    emp_id: null,
     name: "",
     phone: "",
     email: "",
@@ -36,7 +36,7 @@ export default function LocalStorage() {
 
   const handleClearFields = () => {
     setFormData({
-      emp_id: null,
+      emp_id: "",
       name: "",
       phone: "",
       email: "",
