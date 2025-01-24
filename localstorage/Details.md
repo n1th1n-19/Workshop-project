@@ -1,0 +1,1 @@
+Grid2 : to divide or to stucture
