@@ -26,6 +26,7 @@ export default function LocalStorage() {
   });
 
   const [tableData, setTableData] = useState([]);
+  const [editIndex, setEditIndex] = useState(null); // Track index of the row being edited
 
   // Load data from localStorage on component mount
   useEffect(() => {
@@ -41,11 +42,21 @@ export default function LocalStorage() {
   };
 
   const handleSave = () => {
-    // Add formData to the tableData array
-    const updatedData = [...tableData, formData];
-    setTableData(updatedData);
-    localStorage.setItem("formData", JSON.stringify(updatedData));
-    alert("Form data saved successfully!");
+    if (editIndex !== null) {
+      // If editing, update the specific row
+      const updatedData = [...tableData];
+      updatedData[editIndex] = formData;
+      setTableData(updatedData);
+      localStorage.setItem("formData", JSON.stringify(updatedData));
+      alert("Row updated successfully!");
+      setEditIndex(null); // Reset editIndex
+    } else {
+      // If not editing, add new data
+      const updatedData = [...tableData, formData];
+      setTableData(updatedData);
+      localStorage.setItem("formData", JSON.stringify(updatedData));
+      alert("Form data saved successfully!");
+    }
     // Clear form after saving
     setFormData({
       emp_id: "",
@@ -56,20 +67,16 @@ export default function LocalStorage() {
     });
   };
 
-  const handleShowData = () => {
-    const storedData = localStorage.getItem("formData");
-    if (storedData) {
-      setTableData(JSON.parse(storedData));
-      alert("Data loaded successfully!");
-    } else {
-      alert("No data found in localStorage!");
-    }
+  const handleEdit = (index) => {
+    setFormData(tableData[index]); // Prepopulate form fields with the row's data
+    setEditIndex(index); // Set the index of the row being edited
   };
 
-  const handleRemoveData = () => {
-    localStorage.removeItem("formData");
-    setTableData([]);
-    alert("Stored data removed successfully!");
+  const handleDelete = (index) => {
+    const updatedData = tableData.filter((_, i) => i !== index);
+    setTableData(updatedData);
+    localStorage.setItem("formData", JSON.stringify(updatedData));
+    alert("Row deleted successfully!");
   };
 
   const handleClearFields = () => {
@@ -80,14 +87,8 @@ export default function LocalStorage() {
       email: "",
       address: "",
     });
+    setEditIndex(null); // Reset editIndex
     alert("Form fields cleared!");
-  };
-
-  const handleDelete = (index) => {
-    const updatedData = tableData.filter((_, i) => i !== index);
-    setTableData(updatedData);
-    localStorage.setItem("formData", JSON.stringify(updatedData));
-    alert("Row deleted successfully!");
   };
 
   return (
@@ -196,27 +197,11 @@ export default function LocalStorage() {
               size="small"
               onClick={handleSave}
             >
-              Save
-            </Button>
-            <Button
-              variant="contained"
-              color="secondary"
-              size="small"
-              onClick={handleShowData}
-            >
-              Show Data
+              {editIndex !== null ? "Update" : "Save"}
             </Button>
             <Button
               variant="contained"
               color="error"
-              size="small"
-              onClick={handleRemoveData}
-            >
-              Remove Data
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
               size="small"
               onClick={handleClearFields}
             >
@@ -234,7 +219,6 @@ export default function LocalStorage() {
               <TableCell>Phone</TableCell>
               <TableCell>Email</TableCell>
               <TableCell>Address</TableCell>
-      
             </TableRow>
           </TableHead>
           <TableBody>
@@ -249,15 +233,15 @@ export default function LocalStorage() {
                 <TableCell>{row.email}</TableCell>
                 <TableCell>{row.address}</TableCell>
                 <TableCell>
-                  <IconButton>
+                  <IconButton onClick={() => handleEdit(index)}>
                     <EditIcon color="success" />
                   </IconButton>
                 </TableCell>
                 <TableCell>
-                    <IconButton onClick={() => handleDelete(index)}>
+                <IconButton onClick={() => handleDelete(index)}>
                     <DeleteSharpIcon color="error" />
                   </IconButton>
-                  </TableCell>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
